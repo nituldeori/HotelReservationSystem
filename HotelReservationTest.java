@@ -23,6 +23,20 @@ public class HotelReservationTest {
         Assert.assertEquals(220,HR.hotelList.get(2).rateRegular);
     }
 
+    @Test
+
+    public void testForCheapestHotel(){
+        HotelReservation HR=new HotelReservation();
+        Hotel h1=new Hotel("Lakewood",110);
+        Hotel h2=new Hotel("Bridgewood",160);
+        Hotel h3=new Hotel("Ridgewood",220);
+        HR.addHotel(h1);
+        HR.addHotel(h2);
+        HR.addHotel(h3);
+        Hotel cheapest=HR.findCheapestHotelRegular("05 12 2020","06 12 2020");
+        Assert.assertEquals(h1,cheapest);
+    }
+
 
 
 }
