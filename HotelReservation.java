@@ -95,9 +95,9 @@ public class HotelReservation {
     public static void main(String[] args) {
         System.out.println("Welcome to Hotel Reservation System");
         HotelReservation HR = new HotelReservation();
-        Hotel h1 = new Hotel("Lakewood", 110, 90);
-        Hotel h2 = new Hotel("Bridgewood", 160, 50);
-        Hotel h3 = new Hotel("Ridgewood", 220, 150);
+        Hotel h1 = new Hotel("Lakewood", 110, 90,3);
+        Hotel h2 = new Hotel("Bridgewood", 160, 50,4);
+        Hotel h3 = new Hotel("Ridgewood", 220, 150,5);
         HR.addHotel(h1);
         HR.addHotel(h2);
         HR.addHotel(h3);

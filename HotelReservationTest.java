@@ -40,21 +40,24 @@ public class HotelReservationTest {
     @Test
     public void testAddMethodOfHotelReservationWithWeekendRate(){
         HotelReservation HR=new HotelReservation();
-        Hotel h1=new Hotel("Lakewood",110,90);
-        Hotel h2=new Hotel("Bridgewood",160,50);
-        Hotel h3=new Hotel("Ridgewood",220,150);
+        Hotel h1=new Hotel("Lakewood",110,90,3);
+        Hotel h2=new Hotel("Bridgewood",160,50,4);
+        Hotel h3=new Hotel("Ridgewood",220,150,5);
         HR.addHotel(h1);
         HR.addHotel(h2);
         HR.addHotel(h3);
         Assert.assertEquals("Lakewood",HR.hotelList.get(0).hotelName);
         Assert.assertEquals(110,HR.hotelList.get(0).rateRegular);
         Assert.assertEquals(90,HR.hotelList.get(0).rateWeekend);
+        Assert.assertEquals(3,HR.hotelList.get(0).rating);
         Assert.assertEquals("Bridgewood",HR.hotelList.get(1).hotelName);
         Assert.assertEquals(160,HR.hotelList.get(1).rateRegular);
         Assert.assertEquals(50,HR.hotelList.get(1).rateWeekend);
+        Assert.assertEquals(4,HR.hotelList.get(1).rating);
         Assert.assertEquals("Ridgewood",HR.hotelList.get(2).hotelName);
         Assert.assertEquals(220,HR.hotelList.get(2).rateRegular);
         Assert.assertEquals(150,HR.hotelList.get(2).rateWeekend);
+        Assert.assertEquals(5,HR.hotelList.get(2).rating);
     }
 
 
