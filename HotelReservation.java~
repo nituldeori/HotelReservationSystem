@@ -72,21 +72,23 @@ public class HotelReservation {
                     break;
                 default:
                     lakeWoodPrice+=110;
-                    brideWoodPrice+=150;
+                    brideWoodPrice+=160;
                     ridgeWoodPrice+=220;
                     break;
             }
             start = start.plusDays(1);
         }
+        System.out.println(brideWoodPrice);
+        System.out.println(ridgeWoodPrice);
         int min = Math.min(Math.min(lakeWoodPrice,brideWoodPrice),ridgeWoodPrice);
         if(min==lakeWoodPrice){
-            System.out.println("Min Cost Hotel: Lakewood"+" Price: "+lakeWoodPrice);
+                System.out.println("Lakewood: "+lakeWoodPrice);
         }
         if(min==brideWoodPrice){
-            System.out.println("Min Cost Hotel: Bridgewood"+" Price: "+brideWoodPrice);
+                System.out.println("Bridgewood: "+brideWoodPrice);
         }
         if(min==ridgeWoodPrice)
-            System.out.println("Min Cost Hotel: Ridgewood"+" Price: "+ridgeWoodPrice);
+            System.out.println("Ridgewood: "+ridgeWoodPrice);
 
 
     }
