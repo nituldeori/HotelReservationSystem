@@ -121,25 +121,61 @@ public class HotelReservation {
         }
         int min = Math.min(Math.min(lakeWoodPrice,brideWoodPrice),ridgeWoodPrice);
         if(min==lakeWoodPrice && min==brideWoodPrice){
-            System.out.println("Best rated hotel: "+hotelList.get(1).hotelName+" rating: "+hotelList.get(1).rating+" Total Price: "+brideWoodPrice);
+            System.out.println("Cheapest Best rated hotel: "+hotelList.get(1).hotelName+" rating: "+hotelList.get(1).rating+" Total Price: "+brideWoodPrice);
         }
         else if(min==brideWoodPrice && min==ridgeWoodPrice){
-            System.out.println("Best rated hotel: "+hotelList.get(2).hotelName+" rating: "+hotelList.get(2).rating+" Total Price: "+ridgeWoodPrice);
+            System.out.println("Cheapest Best rated hotel: "+hotelList.get(2).hotelName+" rating: "+hotelList.get(2).rating+" Total Price: "+ridgeWoodPrice);
         }
         else if(min==ridgeWoodPrice && min==lakeWoodPrice){
-            System.out.println("Best rated hotel: "+hotelList.get(3).hotelName+" rating: "+hotelList.get(3).rating+" Total Price: "+ridgeWoodPrice);
+            System.out.println("Cheapest Best rated hotel: "+hotelList.get(3).hotelName+" rating: "+hotelList.get(3).rating+" Total Price: "+ridgeWoodPrice);
         }
         else{
             if(min==lakeWoodPrice){
-                System.out.println("Best rated hotel: "+hotelList.get(0).hotelName+" rating: "+hotelList.get(0).rating+" Total Price: "+lakeWoodPrice);
+                System.out.println("Cheapest Best rated hotel: "+hotelList.get(0).hotelName+" rating: "+hotelList.get(0).rating+" Total Price: "+lakeWoodPrice);
             }
             if(min==brideWoodPrice){
-                System.out.println("Best rated hotel: "+hotelList.get(1).hotelName+" rating: "+hotelList.get(1).rating+" Total Price: "+brideWoodPrice);
+                System.out.println("Cheapest Best rated hotel: "+hotelList.get(1).hotelName+" rating: "+hotelList.get(1).rating+" Total Price: "+brideWoodPrice);
             }
             if(min==ridgeWoodPrice)
-                System.out.println("Best rated hotel: "+hotelList.get(2).hotelName+" rating: "+hotelList.get(2).rating+" Total Price: "+ridgeWoodPrice);
+                System.out.println("Cheapest Best rated hotel: "+hotelList.get(2).hotelName+" rating: "+hotelList.get(2).rating+" Total Price: "+ridgeWoodPrice);
         }
 
+    }
+
+    public void findBestRatedHotel(String date1,String date2){
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
+        LocalDate start = LocalDate.parse(date1, dtf);
+        LocalDate end = LocalDate.parse(date2, dtf);
+        int lakeWoodPrice=0;
+        int brideWoodPrice=0;
+        int ridgeWoodPrice=0;
+        while (!start.isAfter(end)){
+            DayOfWeek day = DayOfWeek.of(start.get(ChronoField.DAY_OF_WEEK));
+            switch (day){
+                case SATURDAY:
+                    lakeWoodPrice+=hotelList.get(0).rateWeekend;
+                    brideWoodPrice+=hotelList.get(1).rateWeekend;
+                    ridgeWoodPrice+=hotelList.get(2).rateWeekend;
+                    break;
+                case SUNDAY:
+                    lakeWoodPrice+=hotelList.get(0).rateWeekend;
+                    brideWoodPrice+=hotelList.get(1).rateWeekend;
+                    ridgeWoodPrice+=hotelList.get(2).rateWeekend;
+                    break;
+                default:
+                    lakeWoodPrice+=hotelList.get(0).rateRegular;
+                    brideWoodPrice+=hotelList.get(1).rateRegular;
+                    ridgeWoodPrice+=hotelList.get(2).rateRegular;
+                    break;
+            }
+            start = start.plusDays(1);
+        }
+        int maxRating=Math.max(Math.max(hotelList.get(0).rating,hotelList.get(1).rating),hotelList.get(2).rating);
+        for(Hotel h: hotelList){
+            if(maxRating==h.rating){
+                System.out.println("Best Rated Hotel: "+h.hotelName);
+            }
+        }
     }
 
 
@@ -155,6 +191,7 @@ public class HotelReservation {
         HR.printHotelList();
         HR.findCheapestRegularAndWeekday("11 09 2020","12 09 2020");
         HR.findCheapestBestRatedHotel("11 09 2020","12 09 2020");
+        HR.findBestRatedHotel("11 09 2020","12 09 2020");
     }
 
 
