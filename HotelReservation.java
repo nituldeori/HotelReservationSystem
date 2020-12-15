@@ -178,8 +178,66 @@ public class HotelReservation {
         }
     }
 
+    public void findCheapestBestRatedHotelForReward(String date1,String date2) throws Exception{
+        try{
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
+            LocalDate start = LocalDate.parse(date1, dtf);
+            LocalDate end = LocalDate.parse(date2, dtf);
+            int lakeWoodPrice=0;
+            int brideWoodPrice=0;
+            int ridgeWoodPrice=0;
+            while (!start.isAfter(end)){
+                DayOfWeek day = DayOfWeek.of(start.get(ChronoField.DAY_OF_WEEK));
+                switch (day){
+                    case SATURDAY:
+                        lakeWoodPrice+=hotelList.get(0).rateWeekendReward;
+                        brideWoodPrice+=hotelList.get(1).rateWeekendReward;
+                        ridgeWoodPrice+=hotelList.get(2).rateWeekendReward;
+                        break;
+                    case SUNDAY:
+                        lakeWoodPrice+=hotelList.get(0).rateWeekendReward;
+                        brideWoodPrice+=hotelList.get(1).rateWeekendReward;
+                        ridgeWoodPrice+=hotelList.get(2).rateWeekendReward;
+                        break;
+                    default:
+                        lakeWoodPrice+=hotelList.get(0).rateRegularReward;
+                        brideWoodPrice+=hotelList.get(1).rateRegularReward;
+                        ridgeWoodPrice+=hotelList.get(2).rateRegularReward;
+                        break;
+                }
+                start = start.plusDays(1);
+            }
+            int min = Math.min(Math.min(lakeWoodPrice,brideWoodPrice),ridgeWoodPrice);
+            if(min==lakeWoodPrice && min==brideWoodPrice){
+                System.out.println("Cheapest Best rated hotel for Reward Customer: "+hotelList.get(1).hotelName+" rating: "+hotelList.get(1).rating+" Total Price: "+brideWoodPrice);
+            }
+            else if(min==brideWoodPrice && min==ridgeWoodPrice){
+                System.out.println("Cheapest Best rated hotel for Reward Customer: "+hotelList.get(2).hotelName+" rating: "+hotelList.get(2).rating+" Total Price: "+ridgeWoodPrice);
+            }
+            else if(min==ridgeWoodPrice && min==lakeWoodPrice){
+                System.out.println("Cheapest Best rated hotel for Reward Customer: "+hotelList.get(3).hotelName+" rating: "+hotelList.get(3).rating+" Total Price: "+ridgeWoodPrice);
+            }
+            else{
+                if(min==lakeWoodPrice){
+                    System.out.println("Cheapest Best rated hotel for Reward Customer: "+hotelList.get(0).hotelName+" rating: "+hotelList.get(0).rating+" Total Price: "+lakeWoodPrice);
+                }
+                if(min==brideWoodPrice){
+                    System.out.println("Cheapest Best rated hotel for Reward Customer: "+hotelList.get(1).hotelName+" rating: "+hotelList.get(1).rating+" Total Price: "+brideWoodPrice);
+                }
+                if(min==ridgeWoodPrice)
+                    System.out.println("Cheapest Best rated hotel for Reward Customer: "+hotelList.get(2).hotelName+" rating: "+hotelList.get(2).rating+" Total Price: "+ridgeWoodPrice);
+            }
 
-    public static void main(String[] args) {
+        } catch (Exception e){
+            System.out.println("Exception: "+e);
+        }
+
+    }
+
+
+
+
+    public static void main(String[] args) throws Exception {
         System.out.println("Welcome to Hotel Reservation System");
         HotelReservation HR = new HotelReservation();
         Hotel h1 = new Hotel("Lakewood", 110, 90,80,80,3);
@@ -192,6 +250,7 @@ public class HotelReservation {
         HR.findCheapestRegularAndWeekday("11 09 2020","12 09 2020");
         HR.findCheapestBestRatedHotel("11 09 2020","12 09 2020");
         HR.findBestRatedHotel("11 09 2020","12 09 2020");
+        HR.findCheapestBestRatedHotelForReward("11 09 2020","12 09 2020");
     }
 
 
